@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tri-Chandra Routine · BSc Morning Shift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --paper:#000; --paper-2:#0b0b0d; --ink:#f2f2f2; --ink-soft:#9a9a9f;
+    --ink-faint:#5f5f66; --rule:#232327; --accent:#d98a3d; --accent-soft:#3a2a17;
+    --gold:#e0a94a; --live:#4caf7d; --radius:3px;
+    --font-display:"Fraunces",Georgia,"Times New Roman",serif;
+    --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  body{padding-bottom:80px;}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px;}
+
+  .masthead{padding:64px 0 30px;text-align:center;}
+  .masthead__eyebrow{display:inline-block;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);padding-bottom:6px;border-bottom:1px solid var(--rule);}
+  .masthead__title{font-family:var(--font-display);font-weight:600;font-size:clamp(2rem,6vw,3.5rem);letter-spacing:-.02em;line-height:1.02;margin:22px 0 10px;}
+  .masthead__title em{font-style:italic;font-weight:400;color:var(--accent);}
+  .masthead__tag{display:block;font-size:.82rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-top:14px;}
+  .masthead__sub{max-width:540px;margin:0 auto;color:var(--ink-soft);font-size:.94rem;}
+
+  .card{position:relative;background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);padding:26px 26px 24px;margin-top:26px;}
+  .card::before{content:"";position:absolute;top:0;left:0;width:46px;height:3px;background:var(--accent);}
+  .card__head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+  .card__head h2{font-family:var(--font-display);font-weight:600;font-size:1.3rem;letter-spacing:-.01em;}
+  .card__head .date{margin-left:auto;font-size:.82rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+  .step{font-family:var(--font-display);font-size:.8rem;font-weight:600;color:var(--accent);letter-spacing:.08em;padding-top:2px;}
+  .np{font-size:.78rem;font-weight:500;color:var(--ink-faint);letter-spacing:.02em;}
+
+  .chips{display:flex;flex-wrap:wrap;gap:9px;}
+  .chip{font-family:var(--font-body);display:inline-flex;flex-direction:column;align-items:center;gap:1px;background:#0b0b0d;border:1px solid var(--rule);border-radius:var(--radius);padding:9px 16px;color:var(--ink);cursor:pointer;transition:transform .12s ease,border-color .12s ease;}
+  .chip:hover{transform:translateY(-1px);border-color:var(--ink-soft);}
+  .chip__label{font-size:.95rem;font-weight:600;}
+  .chip__meta{font-size:.68rem;color:var(--ink-faint);letter-spacing:.04em;}
+  .chip.on{background:var(--ink);border-color:var(--ink);color:#000;}
+  .chip.on .chip__meta{color:#4a4a4a;}
+  .chip--mini{flex-direction:row;padding:5px 13px;font-size:.83rem;font-weight:600;}
+
+  .subjBox{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:16px;border-top:1px dashed var(--rule);}
+  .subj{font-family:var(--font-body);border:1px solid var(--rule);background:#0b0b0d;border-radius:999px;padding:6px 14px;font-size:.84rem;color:var(--ink-soft);cursor:pointer;}
+  .subj.on{background:var(--ink);border-color:var(--ink);color:#000;font-weight:600;}
+
+  .setAll{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px;}
+  .setAll__label{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-faint);}
+  .secRows{margin-top:18px;display:grid;gap:2px;}
+  .secRow{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid var(--rule);}
+  .secRow:last-child{border-bottom:none;}
+  .secRow__name{min-width:176px;font-size:.88rem;color:var(--ink-soft);}
+  .segmented{display:inline-flex;border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;background:#0b0b0d;}
+  .seg{font-family:var(--font-body);border:none;background:transparent;padding:6px 16px;font-size:.82rem;font-weight:600;color:var(--ink-soft);cursor:pointer;border-right:1px solid var(--rule);}
+  .seg:last-child{border-right:none;}
+  .seg.on{background:var(--ink);color:#000;}
+
+  .note{margin-top:18px;font-size:.84rem;color:var(--ink-soft);max-width:760px;}
+  .note b{color:var(--ink);}
+  .note--strong{font-family:var(--font-display);font-size:.95rem;font-style:italic;color:var(--ink);}
+
+  .slots{border-top:1px solid var(--rule);}
+  .slot{display:flex;gap:22px;padding:13px 4px;border-bottom:1px dashed var(--rule);align-items:flex-start;}
+  .slot:last-child{border-bottom:none;}
+  .slot__time{min-width:122px;padding-top:3px;font-size:.86rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .slot__body{flex:1;display:flex;flex-wrap:wrap;gap:8px;}
+  .slot--now{background:#0e0c09;}
+  .slot--now .slot__time{color:var(--gold);font-weight:700;}
+  .badge{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:2px;margin-left:8px;vertical-align:middle;}
+  .badge--now{background:var(--gold);color:#000;}
+  .badge--next{background:var(--live);color:#000;}
+  .pill{display:inline-flex;align-items:baseline;gap:7px;border:none;border-radius:var(--radius);padding:6px 11px;font-size:.85rem;font-weight:500;color:#fff;background:#111;}
+  .pill__room{opacity:.72;font-size:.74rem;}
+  .empty{font-size:.88rem;color:var(--ink-faint);font-style:italic;padding:2px 0;}
+  .empty--big{padding:22px 0 8px;font-size:1rem;}
+
+  .weeknav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+  .weeknav button{font-family:var(--font-body);background:#0b0b0d;border:1px solid var(--rule);border-radius:var(--radius);padding:7px 15px;font-size:.85rem;font-weight:600;color:var(--ink);cursor:pointer;transition:border-color .12s ease,transform .12s ease;}
+  .weeknav button:hover{border-color:var(--ink-soft);transform:translateY(-1px);}
+  .gridScroll{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius);background:#050506;}
+  table.week{border-collapse:collapse;width:100%;min-width:860px;font-size:.8rem;}
+  table.week th,table.week td{border:1px solid var(--rule);padding:8px 7px;vertical-align:top;text-align:left;}
+  table.week thead th{background:#0b0b0d;font-size:.78rem;font-weight:600;white-space:nowrap;}
+  table.week thead th.today{background:var(--ink);color:#000;}
+  table.week thead th .np{display:block;font-weight:400;color:var(--ink-faint);font-size:.68rem;}
+  table.week thead th.today .np{color:#4a4a4a;}
+  table.week td.timecol{white-space:nowrap;background:#0b0b0d;color:var(--ink-soft);font-variant-numeric:tabular-nums;width:100px;font-weight:500;}
+  table.week td.off{color:var(--ink-faint);font-style:italic;}
+  table.week td.isToday{background:#0f0d0a;}
+  .wchip{display:inline-block;border:none;border-radius:3px;padding:3px 7px;margin:2px 2px 0 0;font-size:.74rem;font-weight:500;color:#fff;background:#111;}
+  .wchip__room{opacity:.7;font-size:.67rem;}
+
+  .foot{margin-top:48px;text-align:center;color:var(--ink-soft);font-size:.8rem;padding:0 12px;}
+  .foot__rule{display:block;width:60px;height:2px;background:var(--accent);margin:0 auto 20px;}
+  .foot p{max-width:640px;margin:0 auto 8px;}
+  .foot__muted{color:var(--ink-faint);font-style:italic;}
+
+  @media (max-width:640px){
+    .card{padding:22px 18px;}
+    .slot{flex-direction:column;gap:6px;}
+    .slot__time{min-width:0;}
+    .secRow__name{min-width:0;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <span class="masthead__eyebrow">त्रिभुवन विश्वविद्यालय · त्रि-चन्द्र बहुमुखी क्याम्पस</span>
+    <h1 class="masthead__title">My <em>Routine</em><span class="masthead__tag">BSc Morning Shift</span></h1>
+    <p class="masthead__sub">2nd year classes · effective 2082-05-05 BS · pick your combination, see today &amp; the whole week</p>
+  </header>
+
+  <section class="card">
+    <div class="card__head"><span class="step">01</span><h2>Your combination</h2></div>
+    <div class="chips" id="comboChips"></div>
+    <div id="customBox"></div>
+  </section>
+
+  <section class="card">
+    <div class="card__head">
+      <span class="step">02</span>
+      <h2>Today <span class="np" id="todayNp"></span></h2>
+      <span class="date" id="todayDate"></span>
+    </div>
+    <div id="todayList"></div>
+  </section>
+
+  <section class="card">
+    <div class="card__head">
+      <span class="step">03</span>
+      <h2>Week calendar</h2>
+      <span class="date" id="weekRange"></span>
+    </div>
+    <div class="weeknav">
+      <button id="prevW" type="button">‹ Prev</button>
+      <button id="thisW" type="button">This week</button>
+      <button id="nextW" type="button">Next ›</button>
+    </div>
+    <div class="gridScroll"><table class="week" id="weekTable"></table></div>
+  </section>
+
+  <footer class="foot">
+    <span class="foot__rule"></span>
+    <p>Transcribed from the campus notice (Mon–Fri, 6:00–3:00). Rooms and sections exactly as printed · Sat–Sun off · notice note: only enrolled students may enter class.</p>
+    <p class="foot__muted" id="footMuted"></p>
+  </footer>
+</div>
+
+<script>
+const PERIODS = [
+  {t:"6:00–8:15",   s:360, e:495},
+  {t:"8:15–9:00",   s:495, e:540},
+  {t:"9:00–9:45",   s:540, e:585},
+  {t:"9:45–10:30",  s:585, e:630},
+  {t:"10:30–11:15", s:630, e:675},
+  {t:"11:15–12:00", s:675, e:720},
+  {t:"12:00–12:45", s:720, e:765},
+  {t:"12:45–3:00",  s:765, e:900},
+];
+const SUBJECTS = {
+  PRACT:{n:"Practical"}, PHY:{n:"Physics"}, MATH:{n:"Math"}, MATHAN:{n:"Math An"},
+  CHEM:{n:"Chem"}, STAT:{n:"Stat"}, APPLSTAT:{n:"Appl. Stat"}, ZOO:{n:"Zoology"},
+  BOT:{n:"Botany"}, GEO:{n:"Geo"}, METEO:{n:"Meteo"}, ENV:{n:"Env"},
+};
+const E = (k, sec, room, note) => ({k, sec:sec||"", room:room||"", note:note||""});
+const MON = [
+  [E("PRACT")],
+  [E("PHY","B","Rm 1"), E("ZOO","","Rm 4"), E("MATH","A","Rm NE")],
+  [E("PHY","A","Rm NE"), E("MATH","B","Rm 1"), E("BOT","","Rm 4")],
+  [E("MATHAN","A","Rm 1"), E("CHEM","A","Rm 4"), E("CHEM","B","Rm 2")],
+  [E("STAT","","Rm 27"), E("MATHAN","","Rm 3")],
+  [E("APPLSTAT","","Micro Dept","Phy Grp")],
+  [E("GEO","","Rm 32"), E("METEO","","Met Dept"), E("ENV","","Env Dept")],
+  [E("PRACT")],
+];
+const WED = MON.map((row,i)=> i===4 ? row.concat([E("APPLSTAT","B","Rm 4","Bio Grp")]) : (i===5 ? [] : row));
+const FRI = MON.map((row,i)=> i===5 ? [] : row);
+const DAY_GRID = {1:MON, 2:MON, 3:WED, 4:WED, 5:FRI};
+const NP_DAYS = {0:"आइत",1:"सोम",2:"मंगल",3:"बुध",4:"बिहि",5:"शुक्र",6:"शनि"};
+const EN_DAYS = {0:"Sun",1:"Mon",2:"Tue",3:"Wed",4:"Thu",5:"Fri",6:"Sat"};
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const COMBOS = {
+  PCM:{full:"Physics · Chemistry · Mathematics", subs:["PRACT","PHY","MATH","CHEM","MATHAN"]},
+  PSM:{full:"Physics · Statistics · Mathematics", subs:["PRACT","PHY","MATH","STAT","APPLSTAT"]},
+  MSM:{full:"Math · Statistics · Meteo (Math An)", subs:["PRACT","MATH","MATHAN","STAT","METEO"]},
+  ZBE:{full:"Zoology · Botany · Environment", subs:["PRACT","ZOO","BOT","ENV","APPLSTAT"]},
+  ALL:{full:"Full notice — every class shown", subs:null},
+  CUSTOM:{full:"Your own subject pick", subs:[]},
+};
+const SEC_KEYS = ["PHY","MATH","CHEM","MATHAN","APPLSTAT"];
+
+const mem = {};
+const LS = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return (k in mem) ? mem[k] : null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); }catch(e){ mem[k]=v; } },
+};
+let combo = LS.get("trc-combo") || "PCM";
+if(!COMBOS[combo]) combo = "PCM";
+let customSubs = JSON.parse(LS.get("trc-custom") || '[\"PHY\",\"MATH\",\"STAT\",\"PRACT\"]');
+let secPick = JSON.parse(LS.get("trc-sec") || "{}");
+let weekOffset = 0;
+
+const allowed = () => combo==="ALL" ? null : (combo==="CUSTOM" ? new Set(customSubs) : new Set(COMBOS[combo].subs));
+const label = e => SUBJECTS[e.k].n + (e.sec?" ("+e.sec+")":"") + (e.note?" ("+e.note+")":"");
+const roomTxt = e => e.room || "";
+function mondayOf(d){ const x=new Date(d); const day=(x.getDay()+6)%7; x.setDate(x.getDate()-day); x.setHours(0,0,0,0); return x; }
+const fmt = d => EN_DAYS[d.getDay()]+" "+d.getDate()+" "+MONTHS[d.getMonth()];
+function nowMins(){ const n=new Date(); return n.getHours()*60+n.getMinutes(); }
+function filterRow(row, allow){
+  const r = allow ? row.filter(e=>allow.has(e.k)) : row.slice();
+  return r.filter(e=>!e.sec || !secPick[e.k] || secPick[e.k]===e.sec);
+}
+function periodState(now){
+  const m = now.getHours()*60+now.getMinutes();
+  let curIdx=-1, nextIdx=-1;
+  PERIODS.forEach((p,i)=>{ if(m>=p.s && m<p.e) curIdx=i; if(nextIdx<0 && p.s>m) nextIdx=i; });
+  return {m, curIdx, nextIdx};
+}
+const esc = s => String(s).replace(/[&<>\"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function pillHTML(e){
+  return '<span class="pill">'+esc(label(e))+(roomTxt(e)?'<span class="pill__room">'+esc(roomTxt(e))+'</span>':'')+'</span>';
+}
+function wchipHTML(e){
+  return '<span class="wchip">'+esc(label(e))+(roomTxt(e)?' <span class="wchip__room">'+esc(roomTxt(e))+'</span>':'')+'</span>';
+}
+
+function renderPicker(){
+  const chips = document.getElementById("comboChips");
+  chips.innerHTML = Object.keys(COMBOS).map(key=>{
+    const on = key===combo ? " on" : "";
+    const labelTxt = key==="ALL" ? "All classes" : key==="CUSTOM" ? "Custom" : key;
+    let meta = "";
+    if(key!=="ALL" && key!=="CUSTOM") meta = '<span class="chip__meta">'+COMBOS[key].full.split("·").length+' subjects</span>';
+    return '<button type="button" class="chip'+on+'" data-k="'+key+'"><span class="chip__label">'+labelTxt+'</span>'+meta+'</button>';
+  }).join("");
+  chips.querySelectorAll(".chip").forEach(b=>{
+    b.onclick = ()=>{ combo=b.dataset.k; LS.set("trc-combo",combo); renderAll(); };
+  });
+
+  const customBox = document.getElementById("customBox");
+  if(combo==="CUSTOM"){
+    customBox.className = "subjBox";
+    customBox.innerHTML = Object.keys(SUBJECTS).map(k=>{
+      const on = customSubs.indexOf(k)>=0;
+      return '<button type="button" class="subj'+(on?" on":"")+'" data-k="'+k+'">'+esc(SUBJECTS[k].n)+'</button>';
+    }).join("");
+    customBox.querySelectorAll(".subj").forEach(b=>{
+      b.onclick = ()=>{
+        const k=b.dataset.k, i=customSubs.indexOf(k);
+        if(i>=0) customSubs.splice(i,1); else customSubs.push(k);
+        LS.set("trc-custom", JSON.stringify(customSubs));
+        renderAll();
+      };
+    });
+  } else {
+    customBox.className = "";
+    customBox.innerHTML = "";
+  }
+
+}
+
+function renderToday(){
+  const now = new Date(), d = now.getDay();
+  document.getElementById("todayNp").textContent = NP_DAYS[d]+"बार";
+  document.getElementById("todayDate").textContent = fmt(now) + ", " + now.getFullYear();
+  const box = document.getElementById("todayList");
+  if(!(d in DAY_GRID)){
+    box.innerHTML = '<div class="empty empty--big">Weekend — no classes on Saturday or Sunday. The week calendar below covers Monday to Friday.</div>';
+    return;
+  }
+  const allow = allowed();
+  const {curIdx, nextIdx} = periodState(now);
+  box.innerHTML = '<div class="slots">' + PERIODS.map((p,i)=>{
+    const items = filterRow(DAY_GRID[d][i], allow);
+    const isNow = i===curIdx, isNext = i===nextIdx;
+    const badge = isNow ? '<span class="badge badge--now">NOW</span>' : (isNext ? '<span class="badge badge--next">NEXT</span>' : "");
+    const body = items.length ? items.map(pillHTML).join("") : '<span class="empty">free period</span>';
+    return '<div class="slot'+(isNow?" slot--now":"")+'"><div class="slot__time">'+esc(p.t)+badge+'</div><div class="slot__body">'+body+'</div></div>';
+  }).join("") + '</div>';
+}
+
+function renderWeek(){
+  const now = new Date();
+  const mon = mondayOf(now); mon.setDate(mon.getDate()+weekOffset*7);
+  const sun = new Date(mon); sun.setDate(sun.getDate()+6);
+  document.getElementById("weekRange").textContent = fmt(mon) + " – " + fmt(sun);
+  const allow = allowed();
+  const today = new Date(now); today.setHours(0,0,0,0);
+  const m = nowMins(), realToday = now.getDay();
+  let html = "<thead><tr><th>Time</th>";
+  for(let i=0;i<7;i++){
+    const d = new Date(mon); d.setDate(d.getDate()+i);
+    const isT = d.getTime()===today.getTime();
+    html += '<th class="'+(isT?"today":"")+'">'+EN_DAYS[d.getDay()]+" "+d.getDate()+" "+MONTHS[d.getMonth()]+
+      '<span class="np">'+NP_DAYS[d.getDay()]+'बार</span></th>';
+  }
+  html += "</tr></thead><tbody>";
+  PERIODS.forEach((p,pi)=>{
+    html += '<tr><td class="timecol">'+esc(p.t)+'</td>';
+    for(let i=0;i<7;i++){
+      const dn = i+1;
+      const d = new Date(mon); d.setDate(d.getDate()+i);
+      if(!(dn in DAY_GRID)){ html += '<td class="off">off</td>'; continue; }
+      const items = filterRow(DAY_GRID[dn][pi], allow);
+      const isT = d.getTime()===today.getTime();
+      const live = isT && realToday===dn && m>=p.s && m<p.e;
+      html += '<td class="'+(isT?"isToday":"")+'">'+(live?'<span class="badge badge--now">NOW</span>':"")+items.map(wchipHTML).join("")+'</td>';
+    }
+    html += "</tr>";
+  });
+  html += "</tbody>";
+  document.getElementById("weekTable").innerHTML = html;
+}
+
+function renderFoot(){
+  const has = new Date().getDay() in DAY_GRID;
+  document.getElementById("footMuted").textContent = has
+    ? "gochhu guys"
+    : "Enjoy the weekend — classes resume Monday.";
+}
+
+function renderAll(){ renderPicker(); renderToday(); renderWeek(); renderFoot(); }
+
+document.getElementById("prevW").onclick = ()=>{ weekOffset--; renderWeek(); };
+document.getElementById("nextW").onclick = ()=>{ weekOffset++; renderWeek(); };
+document.getElementById("thisW").onclick = ()=>{ weekOffset=0; renderWeek(); };
+
+renderAll();
+setInterval(()=>{ renderToday(); renderWeek(); renderFoot(); }, 30000);
+</script>
+</body>
+</html>
